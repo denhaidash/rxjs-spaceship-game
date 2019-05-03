@@ -1,10 +1,9 @@
 {
-  "name": "rxjs-starship-game",
+  "name": "rxjs-spaceship-game",
   "version": "1.0.0",
-  "description": "RxJS-based starship game",
+  "description": "RxJS-based spaceship game",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "rollup -c -w",
     "build": "rollup -c",
     "format": "prettier --write \"src/*.js\""
