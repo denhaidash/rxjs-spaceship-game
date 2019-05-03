@@ -155,7 +155,8 @@ function initGame() {
       gameTicker$.pipe(
         map(i => {
           enemies.forEach(enemy => {
-            (enemy.x += i % 10 === 0 ? getRandInt(-5, 5) : 0), (enemy.y += 3);
+            enemy.x += i % 10 === 0 ? getRandInt(-5, 5) : 0;
+            enemy.y += 3;
           });
 
           return enemies
