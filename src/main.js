@@ -174,7 +174,7 @@ function initGame() {
       enemies.filter(enemy => Math.abs(enemy.x - spaceship.x) < 100)
     ),
     switchMap(enemies =>
-      interval(GAME_SPEED * 10, animationFrameScheduler).pipe(
+      interval(GAME_SPEED * 15, animationFrameScheduler).pipe(
         map(() => {
           const enemy = enemies[getRandInt(0, enemies.length - 1)];
 
