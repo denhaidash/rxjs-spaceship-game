@@ -1,4 +1,12 @@
 import {
+  interval,
+  range,
+  fromEvent,
+  combineLatest,
+  Subject,
+  animationFrameScheduler
+} from "rxjs";
+import {
   map,
   toArray,
   switchMap,
@@ -12,14 +20,13 @@ import {
   delay,
   share
 } from "rxjs/operators";
-import { interval, range, fromEvent, combineLatest, Subject } from "rxjs";
 
 document.addEventListener("DOMContentLoaded", initGame);
 
 function initGame() {
   const WIDTH = window.innerWidth;
   const HEIGHT = window.innerHeight;
-  const GAME_SPEED = 40;
+  const GAME_SPEED = 20;
   const STAR_NUMBER = 250;
   const SPACESHIP_MOVE_STEP = 20;
   const ENEMIES_FREQ = 1500;
@@ -40,7 +47,9 @@ function initGame() {
   const gameOverSubject = new Subject();
   const gameOver$ = gameOverSubject.pipe(delay(300));
 
-  const gameTicker$ = interval(GAME_SPEED).pipe(share());
+  const gameTicker$ = interval(GAME_SPEED, animationFrameScheduler).pipe(
+    share()
+  );
 
   const stars$ = range(1, STAR_NUMBER).pipe(
     map(() => ({
@@ -128,7 +137,7 @@ function initGame() {
     startWith([])
   );
 
-  const newEnemy$ = interval(ENEMIES_FREQ).pipe(
+  const newEnemy$ = interval(ENEMIES_FREQ, animationFrameScheduler).pipe(
     map(() => ({
       x: getRandX(),
       y: -15
@@ -164,7 +173,7 @@ function initGame() {
       enemies.filter(enemy => Math.abs(enemy.x - spaceship.x) < 100)
     ),
     switchMap(enemies =>
-      interval(GAME_SPEED * 10).pipe(
+      interval(GAME_SPEED * 10, animationFrameScheduler).pipe(
         map(() => {
           const enemy = enemies[getRandInt(0, enemies.length - 1)];
 
